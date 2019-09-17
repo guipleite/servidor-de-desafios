@@ -2,7 +2,6 @@
 
 {% load static %}
 {% load utils %}
-
 {% block extra-js %}
     <script src="{% static 'js/index.js' %}"></script>
     <script src="{% static 'js/plotly-latest.min.js' %}"></script>
@@ -43,6 +42,34 @@
 
 <h1>Acompanhamento</h1>
 
+<h2>Progresso</h2>
+
+<p>
+A seguir você pode acompanhar o seu progresso nos desafios por tags.
+</p>
+
+<link href="./static/css/css-circular-prog-bar.css" rel="stylesheet">
+<div class="progress-circle p40">
+  <span>40%</span>
+  <div class="left-half-clipper">
+    <div class="first50-bar"></div>
+    <div class="value-bar"></div>
+  </div>
+</div>
+<div class="progress-circle p40">
+  <span>40%</span>
+  <div class="left-half-clipper">
+    <div class="first50-bar"></div>
+    <div class="value-bar"></div>
+  </div>
+</div>
+<div class="progress-circle p40">
+  <span>40%</span>
+  <div class="left-half-clipper">
+    <div class="first50-bar"></div>
+    <div class="value-bar"></div>
+  </div>
+</div>
 <h2>Submissões por dia</h2>
 
 <p>
