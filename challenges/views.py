@@ -39,6 +39,13 @@ def index(request):
     context['all_tags'] = Tag.objects.all()
     context['submissions_per_day'] = ChallengeSubmission.objects.by(request.user).count_challenges_per_day()
     context['days'] = get_daterange(request.user)
+    context['prog_tags'] = {}
+    for c in context['challenges']:
+        for tag in c.tags.names():
+            if tag not in context['prog_tags']:
+                context['prog_tags'][tag] = { "total":1,"feitos":0}
+            else:
+                context['prog_tags'][tag]['total'] +=1
     for sbc in context['submissions_by_challenge']:
         if sbc.attempts == 0:
             sbc.tr_class = 'table-light'
@@ -46,9 +53,12 @@ def index(request):
         elif sbc.best_result == str(Result.OK):
             sbc.tr_class = 'table-success'
             sbc.success = 'Sim'
+            for tag in sbc.challenge.tags.names():
+                context['prog_tags'][tag]['feitos'] +=1
         else:
             sbc.tr_class = 'table-warning'
             sbc.success = 'Não'
+
     return render(request, 'challenges/index.html', context=context)
 
 class Counter:
