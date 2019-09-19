@@ -38,13 +38,18 @@
 
     function DivBox( col )
 {
-    var ret = "";
-  
-        for( var c = 0; c < col; c++ )
-        {
-         ret+='<div class="ldBar label-center" style="width:10%;height:10%;margin:auto"; align=left; data-value="35" data-preset="circle"></div>';
+    var ret = '<div style="width: 100%; display: table;"><div style="display: table-row">';
+        for (var c = 0; c < col; c++ ){
+            if (c  % 6 == 0){
+                ret += '</div>'
+                ret += '<div style="display: table-row">'
+                ret+= '<div style="display: table-cell;"><div class="ldBar label-center" style="width:30%;height:30%;margin:auto"; align=left; data-value="35" data-preset="circle"></div></div>';
+            } else {
+                ret+= '<div style="display: table-cell;"><div class="ldBar label-center" style="width:30%;height:30%;margin:auto"; align=left; data-value="35" data-preset="circle"></div></div>';
+            }
         }
-    
+        ret += '</div>'
+        ret += '</div>'
     return ret;
 }
 function DoDivBox( col )
@@ -66,13 +71,15 @@ A seguir você pode acompanhar o seu progresso nos desafios por tags.
 </p>
 
 <div >
-    <body onload="javascript:DoDivBox(2)">
+    <body onload="javascript:DoDivBox(14)">
         <div id="MainDiv" style="" ></div>
 
         <link rel="stylesheet" type="text/css" href="./static/css/loading-bar.css"/>
         <script type="text/javascript" src="/static/css/loading-bar.js"></script>
     </body>
 </div>
+
+
 
 <h2>Submissões por dia</h2>
 
