@@ -6,36 +6,53 @@
     <script src="{% static 'js/index.js' %}"></script>
     <script src="{% static 'js/plotly-latest.min.js' %}"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function(){
-    var data = [{
-        x: [
-            {% for d in days %}
-            '{{ d|date:"Y-m-d" }}',
-            {% endfor %}
-        ],
-        y: [
-            {% for d in days %}
-            {{ submissions_per_day|get_item:d }},
-            {% endfor %}
-        ],
-        type: 'bar'
-    }];
-    var layout = {
-        xaxis: {
-            title: {
-                text: 'Data',
-            }
-        },
-        yaxis: {
-            title: {
-                text: '# Submissões',
-            }
-        },
-    }
+     document.addEventListener('DOMContentLoaded', function(){
+     var data = [{
+         x: [
+             {% for d in days %}
+             '{{ d|date:"Y-m-d" }}',
+             {% endfor %}
+         ],
+         y: [
+             {% for d in days %}
+             {{ submissions_per_day|get_item:d }},
+             {% endfor %}
+         ],
+         type: 'bar'
+     }];
+     var layout = {
+         xaxis: {
+             title: {
+                 text: 'Data',
+             }
+         },
+         yaxis: {
+             title: {
+                 text: '# Submissões',
+             }
+         },
+     }
 
-    Plotly.newPlot('plotDias', data, layout);
-});
-    </script>
+     Plotly.newPlot('plotDias', data, layout);
+     });
+
+    function DivBox( col )
+{
+    var ret = "";
+  
+        for( var c = 0; c < col; c++ )
+        {
+         ret+='<div class="ldBar label-center" style="width:10%;height:10%;margin:auto"; align=left; data-value="35" data-preset="circle"></div>';
+        }
+    
+    return ret;
+}
+function DoDivBox( col )
+{
+    var obj = document.getElementById("MainDiv");
+    obj.innerHTML = DivBox( col );
+}
+</script>
 {% endblock %}
 
 {% block pagecontent %}
@@ -48,16 +65,14 @@
 A seguir você pode acompanhar o seu progresso nos desafios por tags.
 </p>
 
-<link rel="stylesheet" type="text/css" href="./static/css/loading-bar.css"/>
-<script type="text/javascript" src="/static/css/loading-bar.js"></script>
-<div
-  class="ldBar label-center"
-  style="width:10%;height:10%;margin:auto"
-  align=left;
-  data-value="35"
-  data-preset="circle"
-></div>
+<div >
+    <body onload="javascript:DoDivBox(2)">
+        <div id="MainDiv" style="" ></div>
 
+        <link rel="stylesheet" type="text/css" href="./static/css/loading-bar.css"/>
+        <script type="text/javascript" src="/static/css/loading-bar.js"></script>
+    </body>
+</div>
 
 <h2>Submissões por dia</h2>
 
