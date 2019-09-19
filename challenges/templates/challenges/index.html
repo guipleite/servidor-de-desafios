@@ -35,42 +35,6 @@
 
      Plotly.newPlot('plotDias', data, layout);
      });
-
-    function DivBox( col )
-{
-    var ret = '<div style="width: 100%; display: table;"><div style="display: table-row">'
-        let tags_prog = [
-            {%for t in prog_tags%}
-            {%with tag=prog_tags|get_item:t%}
-            [
-                {{tag}},
-                {{tag|get_item:'feitos'}},
-                {{tag|get_item:'total'}},
-                {{tag|get_item:'pct'}}
-            ],    
-            {% endwith %}
-            {% endfor %}
-        ]
-        
-        console.log(tags_prog)
-        for (var c = 0; c < col; c++ ){
-            if (c  % 6 == 0){
-                ret += '</div>'
-                ret += '<div style="display: table-row">'
-                ret+= '<div style="display: table-cell;"><div class="ldBar label-center" style="width:30%;height:30%;margin:auto"; align=left; data-value="35" data-preset="circle"></div></div>';
-            } else {
-                ret+= '<div style="display: table-cell;"><div class="ldBar label-center" style="width:30%;height:30%;margin:auto"; align=left; data-value="35" data-preset="circle"></div></div>';
-            }
-        }
-        ret += '</div>'
-        ret += '</div>'
-    return ret;
-}
-function DoDivBox( col )
-{
-    var obj = document.getElementById("MainDiv");
-    obj.innerHTML = DivBox( col );
-}
 </script>
 {% endblock %}
 
@@ -85,12 +49,26 @@ A seguir você pode acompanhar o seu progresso nos desafios por tags.
 </p>
 
 <div >
-    <body onload="javascript:DoDivBox(14)">
-        <div id="MainDiv" style="" ></div>
-
+    <div>    
         <link rel="stylesheet" type="text/css" href="./static/css/loading-bar.css"/>
         <script type="text/javascript" src="/static/css/loading-bar.js"></script>
-    </body>
+        <div style="width: 100%; display: table;"><div style="display: table-row"></div>
+        {%for t in prog_tags%}
+        {%with tag=prog_tags|get_item:t%}
+        {%with pct=tag|get_item:'pct'%}
+        {%if forloop.counter0|divisibleby:"4"%}
+            </div>
+            <div style="display: table-row">
+            <div style="display: table-cell;">
+            <div class="ldBar label-center" style="width:30%;height:30%;margin:auto"; align=left; data-value={{pct}} data-preset="circle"></div></div>'
+        {% else %}
+            <div style="display: table-cell;">
+            <div class="ldBar label-center" style="width:30%;height:30%;margin:auto"; align=left; data-value={{pct}} data-preset="circle"></div></div>
+        {% endif %}
+        {% endwith %}
+        {% endwith %}
+        {% endfor %}
+    </div>
 </div>
 
 
