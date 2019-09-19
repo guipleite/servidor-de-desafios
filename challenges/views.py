@@ -43,7 +43,7 @@ def index(request):
     for c in context['challenges']:
         for tag in c.tags.names():
             if tag not in context['prog_tags']:
-                context['prog_tags'][tag] = { "total":1,"feitos":0}
+                context['prog_tags'][tag] = { "total":1,"feitos":0,"pct":0.0}
             else:
                 context['prog_tags'][tag]['total'] +=1
     for sbc in context['submissions_by_challenge']:
@@ -55,6 +55,8 @@ def index(request):
             sbc.success = 'Sim'
             for tag in sbc.challenge.tags.names():
                 context['prog_tags'][tag]['feitos'] +=1
+                context['prog_tags'][tag]['pct'] = context['prog_tags'][tag]['feitos'] / context['prog_tags'][tag]['total']
+                
         else:
             sbc.tr_class = 'table-warning'
             sbc.success = 'Não'

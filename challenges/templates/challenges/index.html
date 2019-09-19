@@ -38,7 +38,21 @@
 
     function DivBox( col )
 {
-    var ret = '<div style="width: 100%; display: table;"><div style="display: table-row">';
+    var ret = '<div style="width: 100%; display: table;"><div style="display: table-row">'
+        let tags_prog = [
+            {%for t in prog_tags%}
+            {%with tag=prog_tags|get_item:t%}
+            [
+                {{tag}},
+                {{tag|get_item:'feitos'}},
+                {{tag|get_item:'total'}},
+                {{tag|get_item:'pct'}}
+            ],    
+            {% endwith %}
+            {% endfor %}
+        ]
+        
+        console.log(tags_prog)
         for (var c = 0; c < col; c++ ){
             if (c  % 6 == 0){
                 ret += '</div>'
