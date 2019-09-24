@@ -42,6 +42,7 @@ def index(request):
     context['days'] = get_daterange(request.user)
     context['show_nav'] = False
     context['prog_tags'] = {}
+    
     for c in context['challenges']:
         for tag in c.tags.names():
             if tag not in context['prog_tags']:
